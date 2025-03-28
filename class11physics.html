@@ -1,0 +1,180 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Physics Class 11 - NCERT</title>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jszip/3.10.1/jszip.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/FileSaver.js/2.0.5/FileSaver.min.js"></script>
+    <style>
+        @import url('https://fonts.googleapis.com/css2?family=Orbitron:wght@400;700&display=swap');
+
+        body {
+            font-family: 'Orbitron', sans-serif;
+            background: #0f172a;
+            color: #fff;
+            text-align: center;
+            margin: 0;
+            padding: 0;
+        }
+
+        .container {
+            max-width: 800px;
+            margin: 50px auto;
+            padding: 20px;
+            background: rgba(255, 255, 255, 0.1);
+            border-radius: 15px;
+            box-shadow: 0px 0px 20px rgba(0, 255, 255, 0.6);
+        }
+
+        h1 {
+            color: #00eaff;
+            text-shadow: 0 0 10px #00eaff;
+        }
+
+        .chapter-list {
+            display: flex;
+            flex-direction: column;
+            gap: 10px;
+            margin-top: 20px;
+        }
+
+        .chapter-item {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            background: linear-gradient(45deg, #00eaff, #007bff);
+            color: white;
+            font-size: 18px;
+            padding: 10px;
+            border-radius: 8px;
+            cursor: pointer;
+            transition: 0.3s;
+            width: 100%;
+            max-width: 400px;
+            margin: auto;
+            position: relative;
+            z-index: 100;
+        }
+
+        .chapter-item:hover {
+            background: linear-gradient(45deg, #007bff, #00eaff);
+            transform: scale(1.05);
+            box-shadow: 0px 0px 10px #00eaff;
+        }
+
+        .menu-btn {
+            background: none;
+            border: none;
+            color: white;
+            font-size: 20px;
+            cursor: pointer;
+        }
+
+        .menu-box {
+            display: none;
+            position: absolute;
+            top: 40px;
+            right: 10px;
+            background: white;
+            border-radius: 8px;
+            padding: 5px;
+            box-shadow: 0px 0px 15px rgba(0, 0, 0, 0.2);
+            z-index: 9999;
+        }
+
+        .menu-box button {
+            background: none;
+            border: none;
+            color: black;
+            font-size: 16px;
+            padding: 8px;
+            cursor: pointer;
+            display: block;
+            width: 100%;
+            text-align: left;
+        }
+
+        .menu-box button:hover {
+            background: rgba(0, 0, 0, 0.1);
+        }
+    </style>
+</head>
+<body>
+
+    <div class="container">
+        <h1>🚀 Physics Class 11 - NCERT</h1>
+        <p>Click on any chapter to open its PDF.</p>
+        <div id="chapterList" class="chapter-list"></div>
+    </div>
+
+    <script>
+        document.addEventListener('DOMContentLoaded', function() {
+            const chapters = [
+                { number: 1, name: "Units and Measurements", link: "/physics/class11.physics.1.Units_and_Measurements.pdf" },
+                { number: 2, name: "Motion in a Straight Line", link: "/physics/class11.physics.2.Motion_in_a_Straight_Line.pdf" },
+                { number: 3, name: "Motion in a Plane", link: "/physics/class11.physics.3.Motion_in_a_Plane.pdf" },
+                { number: 4, name: "Laws of Motion", link: "/physics/class11.physics.4.Laws_of_Motion.pdf" },
+                { number: 5, name: "Work, Energy and Power", link: "/physics/class11.physics.5.Work_Energy_and_Power.pdf" },
+                { number: 6, name: "System of Particles and Rotational Motion", link: "/physics/class11.physics.6.System_of_Particles_and_Rotational_Motion.pdf" },
+                { number: 7, name: "Gravitation", link: "/physics/class11.physics.7.Gravitation.pdf" },
+                { number: 8, name: "Mechanical Properties of Solids", link: "/physics/class11.physics.8.Mechanical_Properties_of_Solids.pdf" },
+                { number: 9, name: "Mechanical Properties of Fluids", link: "/physics/class11.physics.9.Mechanical_Properties_of_Fluids.pdf" },
+                { number: 10, name: "Thermal Properties of Matter", link: "/physics/class11.physics.10.Thermal_Properties_of_Matter.pdf" },
+                { number: 11, name: "Thermodynamics", link: "/physics/class11.physics.11.Thermodynamics.pdf" },
+                { number: 12, name: "Kinetic Theory", link: "/physics/class11.physics.12.Kinetic_Theory.pdf" },
+                { number: 13, name: "Oscillations", link: "/physics/class11.physics.13.Oscillations.pdf" },
+                { number: 14, name: "Waves", link: "/physics/class11.physics.14.Waves.pdf" }
+            ];
+
+            const chapterList = document.getElementById('chapterList');
+
+            chapters.forEach(chapter => {
+                const chapterItem = document.createElement('div');
+                chapterItem.className = 'chapter-item';
+                chapterItem.innerHTML = `
+                    <span onclick="openPDF('${chapter.link}')">Chapter ${chapter.number}: ${chapter.name}</span>
+                    <button class="menu-btn">⋮</button>
+                    <div class="menu-box">
+                        <button onclick="downloadPDF('${chapter.link}')">📥 Download</button>
+                    </div>
+                `;
+
+                chapterItem.addEventListener('click', function(event) {
+                    if (!event.target.classList.contains("menu-btn")) {
+                        openPDF(chapter.link);
+                    }
+                });
+
+                const menuBtn = chapterItem.querySelector('.menu-btn');
+                const menuBox = chapterItem.querySelector('.menu-box');
+
+                menuBtn.addEventListener('click', function(event) {
+                    event.stopPropagation();
+                    menuBox.style.display = menuBox.style.display === 'block' ? 'none' : 'block';
+                });
+
+                document.addEventListener('click', function() {
+                    menuBox.style.display = 'none';
+                });
+
+                chapterList.appendChild(chapterItem);
+            });
+        });
+
+        function openPDF(fileLink) {
+            window.open(fileLink, '_blank');
+        }
+
+        function downloadPDF(fileLink) {
+            const link = document.createElement('a');
+            link.href = fileLink;
+            link.download = fileLink.split('/').pop();
+            document.body.appendChild(link);
+            link.click();
+            document.body.removeChild(link);
+        }
+    </script>
+
+</body>
+</html>

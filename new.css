@@ -1,0 +1,80 @@
+/* 🌙 Dark Theme Background */
+body {
+    font-family: 'Poppins', sans-serif;
+    background: linear-gradient(135deg, #000428, #004e92);
+    color: white;
+    text-align: center;
+    margin: 0;
+    padding: 0;
+    height: 100vh;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+}
+
+/* 🕰 Live Clock */
+#liveClock {
+    font-size: 24px;
+    font-weight: bold;
+    background: rgba(255, 255, 255, 0.1);
+    padding: 10px 20px;
+    border-radius: 10px;
+    display: inline-block;
+    margin-bottom: 10px;
+}
+
+/* 🎨 Animated Welcome Text */
+.welcome-text {
+    font-size: 28px;
+    font-weight: bold;
+    color: #00ffea;
+    text-shadow: 0px 0px 20px #00fff7;
+    animation: glow 1.5s infinite alternate;
+}
+
+/* 📚 Class Grid */
+.container {
+    width: 90%;
+    max-width: 800px;
+    padding: 20px;
+}
+
+h2 {
+    font-size: 24px;
+    margin-bottom: 20px;
+}
+
+#classGrid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(120px, 1fr));
+    gap: 15px;
+    justify-content: center;
+}
+
+/* 🔷 Class Icons */
+.class-item {
+    background: rgba(255, 255, 255, 0.1);
+    padding: 20px;
+    border-radius: 15px;
+    text-align: center;
+    font-size: 20px;
+    font-weight: bold;
+    cursor: pointer;
+    transition: transform 0.3s, box-shadow 0.3s;
+}
+
+.class-item:hover {
+    transform: scale(1.1);
+    box-shadow: 0 0 15px #00ffea;
+}
+
+/* ✨ Animations */
+@keyframes glow {
+    from {
+        text-shadow: 0px 0px 5px #00fff7;
+    }
+    to {
+        text-shadow: 0px 0px 20px #00fff7;
+    }
+}
